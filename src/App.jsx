@@ -7,14 +7,31 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentTime: null, msg: 'now'
+			currentTime: null,
+			msg: 'now',
+			timezone: 'PST',
 		}
 	}
 
 	// methods we'll fill in shortly
-	fetchCurrentTime() { }
-	getApiUrl() { }
+	fetchCurrentTime() {
+		fetch(this.getApiUrl())
+			.then(resp => resp.json())
+			.then(resp => {
+				const currentTime = resp.dateString;
+				this.setState({currentTime});
+			})
+	}
+
+	getApiUrl() {
+		const {timezone, msg} = this.state;
+		const host = 'https://andthetimeis.com';
+
+		return host + '/' + timezone + '/' + msg + '.json';
+	}
+
 	handleFormSubmit(evt) { }
+
 	handleChange(newState) { }
 
 	render() {
