@@ -30,7 +30,9 @@ class App extends React.Component {
 		return host + '/' + tz + '/' + msg + '.json';
 	}
 
-	handleFormSubmit(evt) { }
+	handleFormSubmit(evt) {
+		this.fetchCurrentTime();
+	}
 
 	handleChange(newState) {
 		console.log(this.state);
