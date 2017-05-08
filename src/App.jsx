@@ -9,7 +9,7 @@ class App extends React.Component {
 		this.state = {
 			currentTime: null,
 			msg: 'now',
-			timezone: 'PST',
+			tz: 'PST',
 		}
 	}
 
@@ -24,15 +24,22 @@ class App extends React.Component {
 	}
 
 	getApiUrl() {
-		const {timezone, msg} = this.state;
+		const {tz, msg} = this.state;
 		const host = 'https://andthetimeis.com';
 
-		return host + '/' + timezone + '/' + msg + '.json';
+		return host + '/' + tz + '/' + msg + '.json';
 	}
 
 	handleFormSubmit(evt) { }
 
-	handleChange(newState) { }
+	handleChange(newState) {
+		console.log(this.state);
+		this.setState(newState);
+		setTimeout(() => {
+			console.log(this.state);
+		}, 1000);
+
+	}
 
 	render() {
 		const { currentTime, tz } = this.state;
