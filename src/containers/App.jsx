@@ -4,7 +4,7 @@ import './App.css';
 import Home from '../views/Home/Home';
 import About from '../views/About/About';
 
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 const App = props => {
