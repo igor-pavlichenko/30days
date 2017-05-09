@@ -1,12 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Home = () => (
-	<div>
+const Home = (props) => (
+	<div className="home">
 		<h1>Welcome home</h1>
-		<Link to="/about">Go to about</Link>
-		<Link to="/timeform">Time form</Link>
+		<p>Current time: {props.currentTime}</p>
 	</div>
 );
 
-export default Home;
+const mapStateToProps = (state) => {
+	return {
+		currentTime: state.currentTime
+	}
+}
+
+export default connect(mapStateToProps)(Home);
