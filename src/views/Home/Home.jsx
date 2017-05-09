@@ -15,7 +15,7 @@ const Home = (props) => (
 
 const mapStateToProps = (state) => {
 	return {
-		currentTime: state.currentTime
+		currentTime: state.currentTime.currentTime
 	}
 }
 
