@@ -1,3 +1,5 @@
+import * as types from './types';
+
 // Initial (starting) state
 const initialState = {
 	currentTime: Date.now().toString(),
@@ -6,7 +8,14 @@ const initialState = {
 // Our root reducer starts with the initial state
 // and must return a representation of the next state
 const rootReducer = (state = initialState, action) => {
-	return state;
+	switch (action.type) {
+		case types.FETCH_NEW_TIME:
+			return { ...state, currentTime: action.payload }
+
+		default:
+			return state;
+	}
+
 }
 
 export default rootReducer;
