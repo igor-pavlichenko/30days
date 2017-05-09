@@ -3,6 +3,25 @@ import 'whatwg-fetch';
 import './App.css';
 import TimeForm from './TimeForm';
 
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+
+
+const Home = () => (
+	<div>
+		<h1>Welcome home</h1>
+		<Link to="/about">Go to about</Link>
+		<Link to="/timeform">Time form</Link>
+	</div>
+);
+
+const About = () => (
+	<div>
+		<h1>About</h1>
+		<Link to="/">Go home</Link>
+		<Link to="/timeform">Time form</Link>
+	</div>
+);
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -19,12 +38,12 @@ class App extends React.Component {
 			.then(resp => resp.json())
 			.then(resp => {
 				const currentTime = resp.dateString;
-				this.setState({currentTime});
+				this.setState({ currentTime });
 			})
 	}
 
 	getApiUrl() {
-		const {tz, msg} = this.state;
+		const { tz, msg } = this.state;
 		const host = 'https://andthetimeis.com';
 
 		return host + '/' + tz + '/' + msg + '.json';
@@ -48,22 +67,32 @@ class App extends React.Component {
 		const apiUrl = this.getApiUrl();
 
 		return (
-			<div>
-				{!currentTime &&
-					<button onClick={this.fetchCurrentTime.bind(this)}>
-						Get the current time
-					</button>}
-				{currentTime && <div>The current time is: {currentTime}</div>}
-				<TimeForm
-					onFormSubmit={this.handleFormSubmit.bind(this)}
-					onFormChange={this.handleChange.bind(this)}
-					tz={tz}
-					msg={'now'}
-				/>
-				<p>We'll be making a request from: <code>{apiUrl}</code></p>
-			</div>
+			<Router>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route path="/about" component={About} />
+					<Route path="/timeform" render={(renderProps) => (
+							<div>
+								{!currentTime &&
+									<button onClick={this.fetchCurrentTime.bind(this)}>
+										Get the current time
+									</button>}
+								{currentTime && <div>The current time is: {currentTime}</div>}
+								<TimeForm
+									onFormSubmit={this.handleFormSubmit.bind(this)}
+									onFormChange={this.handleChange.bind(this)}
+									tz={tz}
+									msg={'now'}
+								/>
+								<p>We'll be making a request from: <code>{apiUrl}</code></p>
+							</div>
+						)
+					} />
+				</Switch>
+			</Router>
 		)
 	}
 }
+
 
 export default App;
