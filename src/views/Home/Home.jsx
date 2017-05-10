@@ -20,7 +20,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	updateTime: () => dispatch(fetchNewTime({})) // must pass an empty object
+	updateTime: () => dispatch(fetchNewTime({
+		onSuccess: (json) => {console.info('ONSUCCESS YEAH!!!')}
+	})) // must pass an empty object
 })
 
 export default connect(

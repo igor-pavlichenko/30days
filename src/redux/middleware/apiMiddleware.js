@@ -15,6 +15,16 @@ const apiMiddleware = (store) => (next) => (action) => {
 		// convert the response to json
 		.then(resp => resp.json())
 		.then(json => {
+			let {onSuccess} = action.meta;
+			// same as:
+			// let onSuccess = action.meta.onSuccess;
+			if (typeof onSuccess === 'function') {
+				onSuccess(json);
+			}
+
+			return json; // Return for the next promise in the chain
+		})
+		.then(json => {
 			// respond back to the user
 			// by dispatching the original action without
 			// the meta object
