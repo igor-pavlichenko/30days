@@ -1,14 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 
-import { rootReducer, initialState } from './reducers';
-
-// MIDDLEWARE
-const loggingMiddleware = (store) => (next) => (action) => {
-	// Our middleware
-	console.log('Redux Log: ', action)
-	// call the next function
-	next(action);
-}
+import { rootReducer, initialState } from './reducers/reducers';
+import loggingMiddleware from './middleware/loggingMiddleware';
+import apiMiddleware from './middleware/apiMiddleware';
 
 
 export const configureStore = () => {
@@ -17,6 +11,7 @@ export const configureStore = () => {
 		initialState,
 		applyMiddleware(
 			loggingMiddleware,
+			apiMiddleware,
 		),
 	);
 
